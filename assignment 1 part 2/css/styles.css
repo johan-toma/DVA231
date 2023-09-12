@@ -1,0 +1,287 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Helvetica, Verdana, sans-serif;
+}
+
+html {
+    font-size: 10px;
+}
+
+body {
+    min-height: 100vh;
+    background-color: black;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    top: 0;
+    padding: 20px 8%;
+    background-color: black;
+    height: 150px;
+}
+
+header > .header-nav {
+    display: flex;
+    overflow: hidden;
+}
+
+.logo-container > #logo {
+    width: 130px;
+    object-fit: contain;
+    aspect-ratio: 3/2;
+}
+
+.header-nav  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.header-nav > ul > .nav-link {
+    display: inline-block;
+    padding: 0px 10px;
+    border-left: 2px solid gray;
+}
+
+.nav-link a {
+    font-size: 1.8rem;
+    text-decoration: none;
+    color: white;
+}
+
+.header-nav > ul > .nav-link:first-of-type {
+    border: none;
+}
+
+#search-form {
+    background-color: #555555;
+    border-radius: 2px;
+    position: relative;
+    height: 40px;
+}
+
+input[type="text"] {
+    border: none;
+    float: left;
+    font-size: 14px;
+    background: #555555;
+    color:white;
+    height: 40px;
+    padding: 2px 10px;
+}
+
+button > #mag-image {
+    width: 25px;    
+}
+
+button {
+    background-color: #555555;
+    color: #555555;
+    border: none;
+    cursor: pointer;
+    padding-top: 10px;
+}
+
+.area-wrapper {
+    width: 100%;
+    display: flex;
+    padding: 0px 10%;
+}
+
+.area-wrapper:first-of-type {
+    width: 100%;
+    padding: 0px 20%;
+    display: flex;
+    min-height: 45px;
+}
+
+.mini-nav {
+    display: flex;
+}
+
+.mini-nav ul {
+    list-style-type: none;
+    padding: 10px;
+    background-color: gray;
+    border-radius: 2px;
+}
+
+.mini-nav ul .mini-link {
+    display: inline-block;
+    padding: 0 15px;
+
+}
+
+.mini-link a {
+    color: white;
+    padding-left: 5px;
+    text-decoration: none;
+    font-size: 10px;
+}
+
+.mini-link {
+    border-left: 1px solid #bebdbc;
+}
+
+.mini-link:first-of-type {
+    border: none;
+}
+
+.card #large-image {
+    width: 100%;
+    height: 50%;
+    min-height: 300px;
+    aspect-ratio: 3/2;
+}
+
+.text-description {
+    position: absolute;
+    left: 0;
+    bottom: 0px;
+    padding: 10px;
+}
+
+.text-description h1 {
+    font-size: 15px;
+    margin: 0;
+    color:white;
+    padding-left: 15px;
+}
+
+.text-description .blue {
+    background-color: #0492c2;
+    width: 50%;
+    min-width: 150px;
+}
+
+.text-description .white {
+    background-color: white;
+    color: black;
+    width: 100%;
+    min-width: 200px;
+}
+
+.large {
+    width: 100%;
+    min-width: 250px;
+}
+
+.small {
+    width: 25%;
+    min-width: 250px;
+}
+
+.medium {
+    width: 600px;
+    min-width: 250px;
+}
+
+#medium-image {
+    width: 100%;
+    min-width: 250px;
+    height: 300px;
+}
+
+.card {
+   position: relative; 
+   height: 300px;
+   margin: 10px 5px;
+}
+
+#small-image {
+    width: 100%;
+    min-width: 250px;
+    height: 300px;
+}
+
+#video {
+    height: 300px;
+    width: 250px;
+}
+
+.blue-bg {
+    background-color: #0492c2;
+}
+
+.white-bg {
+    background-color: white;
+}
+
+.black-bg {
+    background-color: gray;
+}
+.card .white-p {
+    font-size: 12px;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.card .white-h2 {
+    font-size: 15px;
+    margin-bottom: 5px;
+    color: white;
+    padding: 10px;
+}
+
+.card hr {
+    border-width: 2px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-top: 1px solid white;
+}
+
+.card-content {
+    position: absolute;
+    padding: 10px;
+    top: 10px;
+}
+
+.card-content .blue-h2 {
+    font-size: 18px;
+    color: #0492c2;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.card-content .blue-p {
+    display: inline;
+    font-size: 14px;
+    color: #0492c2;
+    margin-bottom: 10px;
+}
+
+.card-content .black-p {
+    display: inline;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.additional-text:hover {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-color: white;
+    transition: ease-in-out 1.5s;
+}
+
+.additional-text .extra-info {
+    opacity: 0;
+    margin: 0;
+    padding: 0;
+    top: 0px;
+    left: 0;
+    position: absolute;
+}
+
+.additional-text:hover .extra-info {
+    opacity: 100%;
+    position: relative;
+    margin: 10px 0;
+    font-size: 15px;
+}
+
