@@ -7,7 +7,7 @@ setInterval("switchImage()", 30000);
 
 function switchImage() {
 
-    var image = document.getElementById("large-image");
+    var image = document.getElementById("hero-image");
     image.src = images[i];
 
     i++;
