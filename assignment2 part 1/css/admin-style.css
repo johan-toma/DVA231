@@ -32,6 +32,6 @@ form input[type="submit"] {
 
 form input[type="submit"]:hover{
     background-color: 	#fffffa;
-    box-shadow: 1px 1px 1px px black;
+    box-shadow: 1px 1px 1px 1px black;
 }
 
