@@ -5,7 +5,13 @@
         ini_set("display_startup_errors", 1);
         error_reporting(E_ALL);
         require('readxml.php');
-    ?>
+        if(isset($_POST["fileInput"]) == true) {
+            $file = "../" .  $_POST["fileInput"];
+            if(file_exists($file)) {
+                $xmlData = simplexml_load_file($file) or die("Failed to Load Xml");
+            }
+        }
+    ?> 
     <head>
         <title>NASA</title>
         <meta charset="utf-8"/>
