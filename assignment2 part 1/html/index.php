@@ -8,7 +8,10 @@
         if(isset($_POST["fileInput"]) == true) {
             $file = "../" .  $_POST["fileInput"];
             if(file_exists($file)) {
-                $xmlData = simplexml_load_file($file) or die("Failed to Load Xml");
+                $fileInfo = pathinfo($file);
+                if($fileInfo['extension'] == "xml") {
+                    $xmlData = simplexml_load_file($file) or die("Failed to Load Xml");
+                }
             }
         }
     ?> 
