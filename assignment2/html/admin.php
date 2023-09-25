@@ -4,6 +4,7 @@
         $_SESSION["username"] = $_POST["username"];
         $_SESSION["password"] = $_POST["password"];
     }
+    
 ?>
 
 <html lang="en">
@@ -16,7 +17,7 @@
     <body>
         <?php 
             if(isset($_SESSION["username"])) {
-                echo "<h1>" . "Welcome Back To " . $_SESSION["username"] . "</h1>";
+                echo "<h1>" . "Hello,  " . $_SESSION["username"] . "</h1>";
             }
         ?>
         <form action="index.php" method="post"> 
@@ -24,9 +25,7 @@
             <input id="fileInput" type="text" placeholder="Enter XML File" name="fileInput" required>
             <input type="submit" value="Apply">
         </form>
-
         <form action="reset-session.php">
             <input value="reset session" type="submit">
-        </form>
     </body>
 </html>
