@@ -1,9 +1,5 @@
 <?php
     session_start();
-    if(isset($_POST["username"]) && isset($_POST["password"])) {
-        $_SESSION["username"] = $_POST["username"];
-        $_SESSION["password"] = $_POST["password"];
-    }
     
 ?>
 
@@ -20,9 +16,9 @@
                 echo "<h1>" . "Hello,  " . $_SESSION["username"] . "</h1>";
             }
         ?>
-        <form action="index.php" method="post"> 
+        <form action="process-store.php" method="post"> 
             <label for="fileInput">Please enter an XML-file to replace the newspieces with!</label>
-            <input id="fileInput" type="file" placeholder="Enter XML File" name="fileInput" accept="text/xml, application/xml" required>
+            <input id="fileInput" type="file" placeholder="Enter XML File" name="fileInput" accept="text/xml, application/xml"required>
             <input type="submit" value="Apply">
         </form>
         <form action="reset-session.php">

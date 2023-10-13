@@ -6,28 +6,25 @@
         error_reporting(E_ALL);
         session_start();
 
-        if(isset($_POST["fileInput"])) {
-            if(file_exists("../stored_data/" . $_POST["fileInput"])) {
-                unlink("../stored_data/store.json");
-                $jsonData = [
-                    "file" => [
-                         [
-                            "file-to-use" => $_POST["fileInput"]
-                         ]
-                    ]
-                ];
-                $jsonString = json_encode($jsonData, JSON_PRETTY_PRINT);
-                $filename = "../stored_data/store.json";
-                file_put_contents($filename, $jsonString);
+        $db = new mysqli("localhost","root","","assignment3db") or die("Could not connect");
+        $query = "SELECT Title, Content, ImgUrl FROM `news` ORDER BY ID DESC LIMIT 3;";
+        $stmt = $db->query($query);
+        $titles = [];
+        $contents = [];
+        $imgurls = [];
+        if($stmt->num_rows > 0) {
+            $records = [];
+            while($row = $stmt->fetch_assoc()) {
+                $records[] = $row;
+            }
+            $i = 0;
+            foreach($records as $record) {
+                $titles[$i] = $record['Title'];
+                $contents[$i] = $record['Content'];
+                $imgurls[$i] = $record['ImgUrl'];
+                $i++;
             }
         }
-
-        $storeFile = file_get_contents("../stored_data/store.json");
-        $data = json_decode($storeFile, true);
-        $loadData = $data["file"][0]["file-to-use"];
-        $loadData = "../stored_data/" . $loadData;
-        //$jsonValue = json_decode($loadData, JSON_PRETTY_PRINT);
-        $xmlData = simplexml_load_file($loadData) or die("Failed to load XML-file");
         
     ?>
   <head>
@@ -36,39 +33,40 @@
     <meta name="" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/styles.css"></link>
     <script type="text/javascript" src="../js/myscript.js"></script>
+    <!--<script type="text/javascript" src="../js/button-script.js"></script>-->
   </head>
   <body>
 
     <nav class="nav-container">
-      <div class="logo-container"><img class="logo" src="../images/NASA_logo.svg.png"></img></div>
-      <ul>
-        <li><a href="#">Missions</a></li>
-        <li><a href="#">Galleries</a></li>
-        <li><a href="#">NASA TV</a></li>
-        <li><a href="#">Follow NASA</a></li>
-        <li><a href="#">Downloads</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">NASA Audiences</a></li>
-      </ul>
-      <div class="search-container">
-        <form action="">
-            <input type="text"></input>
-            <button value="submit"><img id="mag-image" src="../images/magnyfying4.png"></button>
+        <div class="logo-container"><a class="logo-a" href="index.php"><img class="logo" src="../images/NASA_logo.svg.png"></a></img></div>
+        <ul>
+            <li><a class="link" href="#">Missions</a></li>
+            <li><a class="link" href="#">Galleries</a></li>
+            <li><a class="link" href="#">NASA TV</a></li>
+            <li><a class="link" href="#">Follow NASA</a></li>
+            <li><a class="link" href="#">Downloads</a></li>
+            <li><a class="link" href="#">About</a></li>
+            <li><a class="link" href="#">NASA Audiences</a></li>
+        </ul>
+        <form>
+            
+            <input type="text" id="search-text" name="search-text" onkeyup="showResults(this.value)" placeholder="Search...">
+            <button id="search-button" value="submit"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg></button>
+            <div id="search-box"></div>
         </form>
-      </div>
     </nav>
 
     <main>
         <div class="mini-nav">
-            <li><a href="#">Humans in Space</a></li>
-            <li><a href="#">Moon to Mars</a></li>
-            <li><a href="#">Earth</a></li>
-            <li><a href="#">Space Tech</a></li>
-            <li><a href="#">Flight</a></li>
-            <li><a href="#">Solar System and Beyond</a></li>
-            <li><a href="#">Stem Engagement</a></li>
-            <li><a href="#">History</a></li>
-            <li><a href="#">Benefits to you</a></li>
+            <li><a class="link" href="#">Humans in Space</a></li>
+            <li><a class="link" href="#">Moon to Mars</a></li>
+            <li><a class="link" href="#">Earth</a></li>
+            <li><a class="link" href="#">Space Tech</a></li>
+            <li><a class="link" href="#">Flight</a></li>
+            <li><a class="link" href="#">Solar System and Beyond</a></li>
+            <li><a class="link" href="#">Stem Engagement</a></li>
+            <li><a class="link" href="#">History</a></li>
+            <li><a class="link" href="#">Benefits to you</a></li>
         </div>
         
         <div class="grid-container">
@@ -83,46 +81,46 @@
             </div>
             <div class="grid-area">
                 <div class="card">
-                    <img class="small-image" src=<?php echo $xmlData->NewsPiece[0]->ImgUrl;?>>
+                    <img class="small-image" src=<?php echo $imgurls[0];?>>
                     <div class="text-description additional-text">
-                        <h1 class="blue"><?php echo $xmlData->NewsPiece[0]->Title;?></h1>
+                        <h1 class="blue"><?php echo $titles[0];?></h1>
                         <h1 class="white"><?php
-                            $sentences = explode(" ", $xmlData->NewsPiece[0]->Content);
+                            $sentences = explode(" ", $contents[0]);
                             for($i = 0; $i < 12; $i++) {
                                 echo $sentences[$i] . " ";
                             }
                         ?></h1>
-                        <p class="extra-info"><?php echo $xmlData->NewsPiece[0]->Content;?></p>
+                        <p class="extra-info"><?php echo $contents[0]?></p>
                     </div>
                 </div>
             </div>
             <div class="grid-area">
                 <div class="card">
-                    <img class="small-image" src=<?php echo $xmlData->NewsPiece[1]->ImgUrl;?>>
+                    <img class="small-image" src=<?php echo $imgurls[1];?>>
                     <div class="text-description additional-text">
-                        <h1 class="blue"><?php echo $xmlData->NewsPiece[1]->Title;?></h1>
+                        <h1 class="blue"><?php echo $titles[1];?></h1>
                         <h1 class="white">
                             <?php
-                                $sentences = explode(" ", $xmlData->NewsPiece[1]->Content);
+                                $sentences = explode(" ", $contents[1]);
                                 for($i = 0; $i < 12; $i++) {
                                     echo $sentences[$i] . " ";
                                 }
                             ?>
                         </h1>
-                        <p class="extra-info"><?php echo $xmlData->NewsPiece[1]->Content;?></p>
+                        <p class="extra-info"><?php echo $contents[1]?></p>
                     </div>
                 </div>
             </div>
             <div class="grid-area">
                 <div class="card">
-                    <img class="small-image" src=<?php echo $xmlData->NewsPiece[2]->ImgUrl;?> >
+                    <img class="small-image" src=<?php echo $imgurls[2];?> >
                 </div>
             </div>
             <div class="grid-area">
                 <div class="card white-bg">
                     <div class="card-content">
-                        <h2 class="blue-h2"><?php echo $xmlData->NewsPiece[2]->Title;?></h2>
-                        <p class="black-p"><?php echo $xmlData->NewsPiece[2]->Content?></p>
+                        <h2 class="blue-h2"><?php echo $titles[2];?></h2>
+                        <p class="black-p"><?php echo $contents[2];?></p>
                     </div>
                 </div>
             </div>
@@ -150,6 +148,8 @@
             </div>
         </form>
         </div>
+        
     </main>
+    <script type="text/javascript" src="../js/ajax_search.js"></script>
   </body>
 </html>
